@@ -3,9 +3,9 @@ package io.github.poisonsheep.coralinesdelight.item;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 
-public class ExampleItem extends Item {
-    // 物品构造函数，构造函数这个ExampleItem得改成类名
-    public ExampleItem() {
+public class CottonItem extends Item {
+    // 物品构造函数
+    public CottonItem() {
         super(
                 new Item.Properties()
                         // ------------------------- 堆叠数量设置区域 -------------------------

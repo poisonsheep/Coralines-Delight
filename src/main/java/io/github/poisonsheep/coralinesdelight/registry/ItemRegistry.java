@@ -1,6 +1,7 @@
 package io.github.poisonsheep.coralinesdelight.registry;
 
 import io.github.poisonsheep.coralinesdelight.CoralinesDelight;
+import io.github.poisonsheep.coralinesdelight.item.CottonItem;
 import io.github.poisonsheep.coralinesdelight.item.ExampleItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -11,6 +12,9 @@ public class ItemRegistry {
     // 物品注册器（自动对接Forge系统，不要修改这个变量）
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, CoralinesDelight.MODID);
+
+    public static final RegistryObject<Item> COTTON_ITEM =
+            ITEMS.register("cotton_item", CottonItem::new);
 
     /* ------------------------- 物品注册模板 -------------------------
      * 注册新物品的三要素：
