@@ -4,7 +4,7 @@
 
 ---
 
-## 📌 完整创建流程
+## 📌 物品创建指南
 
 ### 第一步：创建物品类
 1. 在 `src/main/java/io/github/poisonsheep/coralinesdelight/item` 文件夹中
@@ -183,15 +183,95 @@ event.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
 
    - 例：注册为 `golden_strawberry` → 模型文件 `golden_strawberry.json`
 
-### 第六步：制作物品贴图
-
-1. 使用像素画工具（推荐 Aseprite 或 Photoshop）
-
-2. 创建 16x16 像素的PNG文件
-
-3. 保存到 `src/main/resources/assets/coralinesdelight/textures/item`
-
-4. 命名为 `golden_strawberry.png`（必须与模型文件中的名称一致）
-
-
 ---
+
+## 方块创建指南
+开始本篇前我们需要明确什么是方块，**方块（Block)** 是Minecraft世界里最基本的组成单位，只存在于世界中，需同玩家手中的方块物品区分开来。玩家手中的方块是一种拥有方块模型的物品，只是具有特殊右键的功能，从代码上讲该功能就是每一次右键使目会在标位置放置一个方块，然后物品栏中该物品堆的数量减一(如果是创造模式则不减)。这样看来我们创建方块需要进行两步，创建方块以及创建相应的方块物品(如果说只创建方块不创建物品也是可以的，不过只能通过指令`setblock`放置)
+
+###  创建方块
+
+#### 第一步：创建方块类
+
+1. 在 `src/main/java/io/github/poisonsheep/coralinesdelight/block` 文件夹中
+
+2. 右键新建Java类文件（例：`ExampleBlock.java`）
+
+3. 方块可自定义的部分较多，详见`ExampleBlock.java`
+
+#### 第二步：注册方块
+
+1. 打开
+   `src/main/java/io/github/poisonsheep/coralinesdelight/registry/BlockRegistry.java`
+
+2. 在类末尾添加注册条目（注意保持代码风格）：
+```java
+public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", ExampleBlock::new);
+```
+
+#### 第三步：添加本地化翻译
+
+1. **英文翻译**：  
+   `src/main/resources/assets/coralinesdelight/lang/en_us.json`
+```json
+    {
+      "block.coralines_delight.example_block": "Example Block"
+    }
+```
+
+2. **中文翻译**：  
+   `src/main/resources/assets/coralinesdelight/lang/zh_cn.json`
+```json
+    {
+      "block.coralines_delight.example_block": "示范方块"
+    }
+```
+
+#### 第五步：创建方块状态
+
+Minecraft有的方块只有一种状态，有的不止一种，举个例子，活板门方块就有打开和关上的状态。有的时候模型一致朝向不同也是不同的状态，比如熔炉，摆放的时候它总是朝向你，事实上，东南西北四个朝向都各自为一个状态。
+
+**创建方块状态文件**  
+在 `src/main/resources/assets/coralinesdelight/blockstates` 中新建 `example_block.json`
+
+对于没有状态变化的方块：
+```json
+{  
+  "variants": {  
+    "": {  
+      "model": "coralines_delight:block/example_block"  
+    }  
+  }  
+}
+```
+
+**说明**
+- `coralines_delight:block/example_block`: 这是对应的这种状态下的模型文件路径
+
+#### 第六步：创建方块模型
+
+**创建方块模型文件**  
+在 `src/main/resources/assets/coralinesdelight/models/block` 中新建 `example_block.json`
+
+#####  常规正方体方块
+
+```json
+{  
+  "parent": "minecraft:block/cube_all",  
+  "textures": {  
+    "all": "coralines_delight:block/example_block"  
+  }  
+}
+```
+
+**说明**
+- `parent`: 使用标准方块模板
+- `textures`: 方块每个面贴图路径对应 `textures/block` 中的PNG文件
+
+##### 3D模型方块
+这方面方块模型和物品模型并没有什么不同，都是支持json格式的文件，请查看棉花糖模型示范，注意更改以下这部分对应贴图路径的代码
+```json
+{  
+       "0": "coralines_delight:block/example_block",  
+       "particle": "coralines_delight:block/example_block"  
+}
+```

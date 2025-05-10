@@ -1,6 +1,7 @@
 package io.github.poisonsheep.coralinesdelight;
 
 import com.mojang.logging.LogUtils;
+import io.github.poisonsheep.coralinesdelight.registry.BlockRegistry;
 import io.github.poisonsheep.coralinesdelight.registry.ItemRegistry;
 import io.github.poisonsheep.coralinesdelight.registry.TabRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -23,6 +24,7 @@ public class CoralinesDelight
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         TabRegistry.TABS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
+        BlockRegistry.BLOCKS.register(modEventBus);
     }
 
 }

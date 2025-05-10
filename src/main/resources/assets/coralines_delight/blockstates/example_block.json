@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "coralines_delight:block/example_block"
+    }
+  }
+}

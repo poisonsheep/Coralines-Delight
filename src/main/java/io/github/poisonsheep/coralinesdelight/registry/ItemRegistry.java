@@ -13,8 +13,7 @@ public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, CoralinesDelight.MODID);
 
-    public static final RegistryObject<Item> COTTON_ITEM =
-            ITEMS.register("cotton_item", CottonItem::new);
+    public static final RegistryObject<Item> COTTON_ITEM = ITEMS.register("cotton_item", () -> new CottonItem(BlockRegistry.COTTON_BLOCK.get()));
 
     /* ------------------------- 物品注册模板 -------------------------
      * 注册新物品的三要素：
