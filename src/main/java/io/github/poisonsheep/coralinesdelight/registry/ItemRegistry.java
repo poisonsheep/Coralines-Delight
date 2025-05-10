@@ -2,6 +2,7 @@ package io.github.poisonsheep.coralinesdelight.registry;
 
 import io.github.poisonsheep.coralinesdelight.CoralinesDelight;
 import io.github.poisonsheep.coralinesdelight.item.CottonItem;
+import io.github.poisonsheep.coralinesdelight.item.ExampleBlockItem;
 import io.github.poisonsheep.coralinesdelight.item.ExampleItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
@@ -26,7 +27,7 @@ public class ItemRegistry {
      *     ITEMS.register("注册名称", 物品类::new);
      */
 
-    // 示例物品注册（可删除）
+    // 示例普通物品注册
     public static final RegistryObject<Item> EXAMPLE_ITEM =
             ITEMS.register("example_item", ExampleItem::new);
 
@@ -42,4 +43,8 @@ public class ItemRegistry {
     // ▼▼▼ 示例：注册一个名为 "chocolate_cake" 的物品 ▼▼▼
     // public static final RegistryObject<Item> CHOCOLATE_CAKE =
     //     ITEMS.register("chocolate_cake", ChocolateCakeItem::new);
+
+    // 示例方块物品注册
+    public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM =
+            ITEMS.register("example_block_item", () -> new ExampleBlockItem(BlockRegistry.EXAMPLE_BLOCK.get()));
 }

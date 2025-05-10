@@ -1,4 +1,5 @@
 {
   "item.coralines_delight.example_item": "Example Item",
-  "item.coralines_delight.cotton_item": "Cotton"
+  "item.coralines_delight.cotton_item": "Cotton",
+  "block.coralines_delight.example_block": "Example Block"
 }

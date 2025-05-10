@@ -185,8 +185,8 @@ event.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
 
 ---
 
-## 方块创建指南
-开始本篇前我们需要明确什么是方块，**方块（Block)** 是Minecraft世界里最基本的组成单位，只存在于世界中，需同玩家手中的方块物品区分开来。玩家手中的方块是一种拥有方块模型的物品，只是具有特殊右键的功能，从代码上讲该功能就是每一次右键使目会在标位置放置一个方块，然后物品栏中该物品堆的数量减一(如果是创造模式则不减)。这样看来我们创建方块需要进行两步，创建方块以及创建相应的方块物品(如果说只创建方块不创建物品也是可以的，不过只能通过指令`setblock`放置)
+## 📌方块创建指南
+开始本篇前我们需要明确什么是方块，**方块（Block)** 是Minecraft世界里最基本的组成单位，只存在于世界中，需同玩家手中的方块物品区分开来。玩家手中的方块是一种拥有方块模型的物品，只是具有特殊右键的功能，从代码上讲该功能就是每一次右键使用在目标位置放置一个方块，然后物品栏中该物品堆的数量减一(如果是创造模式则不减)。这样看来我们创建方块需要进行两步，创建方块以及创建相应的方块物品(如果说只创建方块不创建物品也是可以的，不过只能通过指令`setblock`放置)
 
 ###  创建方块
 
@@ -275,3 +275,31 @@ Minecraft有的方块只有一种状态，有的不止一种，举个例子，�
        "particle": "coralines_delight:block/example_block"  
 }
 ```
+
+### 创建方块物品
+
+1. 在 `src/main/java/io/github/poisonsheep/coralinesdelight/item` 文件夹中
+
+2. 右键新建Java类文件（例：`ExampleBlockItem.java`）
+
+3. 和普通物品类基本一致，详见`ExampleBlockItem.java`
+
+#### 第二步：注册物品
+
+1. 打开
+   `src/main/java/io/github/poisonsheep/coralinesdelight/registry/ItemRegistry.java`
+
+2. 在类末尾添加注册条目，注意绑定方块和物品在这里实现`BlockRegistry.EXAMPLE_BLOCK.get()`，还记得方块注册类里面那些大写的名字吗，用你的方块大写名字去替换这个EXAMPLE_BLOCK
+```java
+public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM =  
+        ITEMS.register("example_block_item", () -> new ExampleBlockItem(BlockRegistry.EXAMPLE_BLOCK.get()));
+```
+
+#### 第三步：添加至创造模式物品栏
+同普通物品
+
+#### 第四步：添加本地化翻译
+方块物品的id会映射为方块的id，所以不用额外添加翻译映射
+
+#### 第五步：创建物品模型
+同普通物品，可使用方块默认模型，在游戏里就和草方块这些建筑方块一样，会在物品栏展示方块三个面

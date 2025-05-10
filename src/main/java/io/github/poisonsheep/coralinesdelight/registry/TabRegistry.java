@@ -39,7 +39,7 @@ public class TabRegistry {
             // 格式：event.accept(new ItemStack(物品注册项.get()));
             event.accept(new ItemStack(ItemRegistry.EXAMPLE_ITEM.get()));
             event.accept(new ItemStack(ItemRegistry.COTTON_ITEM.get()));
-
+            event.accept(new ItemStack(ItemRegistry.EXAMPLE_BLOCK_ITEM.get()));
             // ▶▶▶ 在此处添加新物品（示例：添加黄金草莓）
             // event.accept(new ItemStack(ItemRegistry.GOLDEN_STRAWBERRY.get()));
 
