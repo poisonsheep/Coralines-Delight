@@ -44,7 +44,7 @@ public static final RegistryObject<Item> GOLDEN_STRAWBERRY =
 
 2. 在物品栏构建器中添加引用：
 ```java
-output.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
+event.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
 ```
 
 ### 第四步：添加本地化翻译
@@ -53,7 +53,7 @@ output.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
    `src/main/resources/assets/coralinesdelight/lang/en_us.json`
 ```json
     {
-      "item.coralinesdelight.golden_strawberry": "Golden Strawberry"
+      "item.coralines_delight.golden_strawberry": "Golden Strawberry"
     }
 ```
 
@@ -61,7 +61,7 @@ output.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
    `src/main/resources/assets/coralinesdelight/lang/zh_cn.json`
 ```json
     {
-      "item.coralinesdelight.golden_strawberry": "黄金草莓"
+      "item.coralines_delight.golden_strawberry": "黄金草莓"
     }
 ```
 
@@ -78,7 +78,7 @@ output.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "coralinesdelight:item/golden_strawberry"
+    "layer0": "coralines_delight:item/golden_strawberry"
   }
 }
 ```
