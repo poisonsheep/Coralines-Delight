@@ -1,9 +1,7 @@
 package io.github.poisonsheep.coralinesdelight.registry;
 
 import io.github.poisonsheep.coralinesdelight.CoralinesDelight;
-import io.github.poisonsheep.coralinesdelight.item.CottonItem;
-import io.github.poisonsheep.coralinesdelight.item.ExampleBlockItem;
-import io.github.poisonsheep.coralinesdelight.item.ExampleItem;
+import io.github.poisonsheep.coralinesdelight.item.*;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -32,6 +30,8 @@ public class ItemRegistry {
             ITEMS.register("example_item", ExampleItem::new);
 
     // ▶▶▶ 新物品注册位置 ▶▶▶
+    public static final RegistryObject<Item> BUTTON=
+            ITEMS.register("button", ButtonItem::new);
     // 在此处添加新的注册条目，格式如下：
     // public static final RegistryObject<Item> 大写物品名 =
     //     ITEMS.register("小写物品名", 自定义物品类::new);
@@ -43,6 +43,8 @@ public class ItemRegistry {
     // ▼▼▼ 示例：注册一个名为 "chocolate_cake" 的物品 ▼▼▼
     // public static final RegistryObject<Item> CHOCOLATE_CAKE =
     //     ITEMS.register("chocolate_cake", ChocolateCakeItem::new);
+    public static final RegistryObject<Item> Shinobu_BLOCK_ITEM =
+            ITEMS.register("shinobu_block_item", () -> new ShinobuBlockItem(BlockRegistry.SHINOBU_BLOCK.get()));
 
     // 示例方块物品注册
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM =
