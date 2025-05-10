@@ -1,5 +1,7 @@
 {
   "item.coralines_delight.example_item": "示例物品",
   "item.coralines_delight.cotton_item": "棉花糖",
-  "block.coralines_delight.example_block": "示范方块"
+  "item.coralines_delight.button": "纽扣",
+  "itemGroup.coralines_delight.main": "鬼妈妈",
+  "block.coralines_delight.shinobu_block": "忍玩偶"
 }
