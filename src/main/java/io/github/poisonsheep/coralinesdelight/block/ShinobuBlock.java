@@ -15,7 +15,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.stream.Stream;
 
-// 这是一个简单的方块
+/* 这种方块跟普通方块代码区别:
+ * 1.继承的类从Block变成了HorizontalDirectionalBlock
+ * 2.多了两个方法createBlockStateDefinition和getStateForPlacement
+*/
 public class ShinobuBlock extends HorizontalDirectionalBlock {
 
     public ShinobuBlock() {
@@ -29,21 +32,36 @@ public class ShinobuBlock extends HorizontalDirectionalBlock {
                 .sound(SoundType.WOOL));
     }
 
-    /* ------------------------- 方块碰撞体积 -------------------------
-     * 没有接下来的代码，方块的碰撞体积就是一个默认的16x16x16的正方体(16指的是mc的最小渲染面尺寸为1个像素点)，不要把碰撞体积和模型搞混了
-     *
-     *
-     */
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
-    }
-
+    // 这个方法就是给方块添加了一个方块状态FACING
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         pBuilder.add(FACING);
     }
 
+    // 这个方法是让玩家放置该方块的时候设定状态为FACING，FACING有东南西北四个值，context.getHorizontalDirection()这个参数就是玩家面朝方向，.getOpposite()把前面的方向取反，这样方块就能面朝玩家了
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+    }
+    public static final VoxelShape SHAPE = Stream.of(
+                    // 这里每一个Block.box(8, 0, 7, 9, 11, 8)都是一个bb模型的cube，有多少个cube就得写多少行
+                    // 前面三个数字和后面三个数字是这个正方体对角线两个点的坐标
+                    // 如果想要碰撞体积贴合模型，直接从模型json文件里面把每个方块元素copy过来
+            /*
+            浏览一下模型json，里面那个elements后面每一个大括号是一个cube，from三个数字抄前面，to后面三个数字抄后面
+			"from": [8, 0, 7],
+			"to": [9, 11, 8],
+            */
+                    // 这个数字最大不能超过16，超过16就改为16
+                    Block.box(5, 0, 4, 11, 12, 12)
 
+            )
+            //后面这一坨直接复制就完了
+            .reduce((v1, v2) -> Shapes.join(v1, v2, BooleanOp.OR)).get();
+
+    // 这个方法直接复制就完了，用来把创建好的SHAPE给组装上
+    @Override
+    public VoxelShape getShape(BlockState State, BlockGetter getter, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
 }
