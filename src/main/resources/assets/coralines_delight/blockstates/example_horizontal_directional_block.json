@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "coralines_delight:block/example_horizontal_directional_block",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "coralines_delight:block/example_horizontal_directional_block"
+    },
+    "facing=south": {
+      "model": "coralines_delight:block/example_horizontal_directional_block",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "coralines_delight:block/example_horizontal_directional_block",
+      "y": 270
+    }
+  }
+}

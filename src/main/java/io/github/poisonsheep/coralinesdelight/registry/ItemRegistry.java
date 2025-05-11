@@ -49,4 +49,7 @@ public class ItemRegistry {
     // 示例方块物品注册
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM =
             ITEMS.register("example_block_item", () -> new ExampleBlockItem(BlockRegistry.EXAMPLE_BLOCK.get()));
+
+    public static final RegistryObject<Item> EXAMPLE_HORIZONTAL_DIRECTIONAL_BLOCK_ITEM =
+            ITEMS.register("example_horizontal_directional_block_item", () -> new ExampleHorizontalDirectionalBlockItem(BlockRegistry.EXAMPLE_HORIZONTAL_DIRECTIONAL_BLOCK.get()));
 }

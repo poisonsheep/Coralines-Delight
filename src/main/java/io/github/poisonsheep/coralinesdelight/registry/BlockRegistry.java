@@ -3,6 +3,7 @@ package io.github.poisonsheep.coralinesdelight.registry;
 import io.github.poisonsheep.coralinesdelight.CoralinesDelight;
 import io.github.poisonsheep.coralinesdelight.block.CottonBlock;
 import io.github.poisonsheep.coralinesdelight.block.ExampleBlock;
+import io.github.poisonsheep.coralinesdelight.block.ExampleHorizontalDirectionalBlock;
 import io.github.poisonsheep.coralinesdelight.block.ShinobuBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,8 +26,10 @@ public class BlockRegistry {
      *     BLOCKS.register("注册名称", 方块类::new);
      */
 
-    // 示例方块注册（可删除）
+    // 示例方块注册
     public static final RegistryObject<Block> EXAMPLE_BLOCK = BLOCKS.register("example_block", ExampleBlock::new);
+
+    public static final RegistryObject<Block> EXAMPLE_HORIZONTAL_DIRECTIONAL_BLOCK = BLOCKS.register("example_horizontal_directional_block", ExampleHorizontalDirectionalBlock::new);
 
     // ▶▶▶ 新方块注册位置 ▶▶▶
     public static final RegistryObject<Block> SHINOBU_BLOCK = BLOCKS.register("shinobu_block", ShinobuBlock::new);

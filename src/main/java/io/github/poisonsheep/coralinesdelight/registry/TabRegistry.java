@@ -40,6 +40,7 @@ public class TabRegistry {
             event.accept(new ItemStack(ItemRegistry.EXAMPLE_ITEM.get()));
             event.accept(new ItemStack(ItemRegistry.COTTON_ITEM.get()));
             event.accept(new ItemStack(ItemRegistry.EXAMPLE_BLOCK_ITEM.get()));
+            event.accept(new ItemStack(ItemRegistry.EXAMPLE_HORIZONTAL_DIRECTIONAL_BLOCK_ITEM.get()));
             // ▶▶▶ 在此处添加新物品（示例：添加黄金草莓）
 
             event.accept(new ItemStack(ItemRegistry.BUTTON.get()));

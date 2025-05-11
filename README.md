@@ -191,12 +191,13 @@ event.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
 ###  创建方块
 
 #### 第一步：创建方块类
+这部分因为可能用到不同的方块模板，所以得学习一下java中**父类子类**以及**继承**的概念。简单来说，**子类** **继承** **父类**的功能，还可以自定义其他的功能，**父类子类**存在的目的是在有多个代码重合率高的类的时候可以把重合这部分代码放父类，缩减代码量，还可以方便续写代码的人快速调用特殊功能的类。比如Minecraft的方块类`Block`就拥有一大堆子类，包括`HorizontalDirectionalBlock`(这个类写了一个叫`facing`的方块状态，用来方便创建能面朝不同方向的方块)，`EntityBlock`(这个方块子类也会经常用到，他是一个包含实体的方块，绑定实体的类才会拥有存储信息以及高级与玩家互动的功能，诸如箱子、熔炉和工作台都是`EntityBlock`的子类)
 
 1. 在 `src/main/java/io/github/poisonsheep/coralinesdelight/block` 文件夹中
 
 2. 右键新建Java类文件（例：`ExampleBlock.java`）
 
-3. 方块可自定义的部分较多，详见`ExampleBlock.java`
+3. 创建普通方块让这个类继承`Block`类就行，详见`ExampleBlock.java`；如果想创建一个可以方便改变朝向的方块，那么让它继承`HorizontalDirectionalBlock`会更简单，详见`ExampleHorizontalDirectionalBlock.java`
 
 #### 第二步：注册方块
 
@@ -233,7 +234,7 @@ Minecraft有的方块只有一种状态，有的不止一种，举个例子，�
 **创建方块状态文件**  
 在 `src/main/resources/assets/coralinesdelight/blockstates` 中新建 `example_block.json`
 
-对于没有状态变化的方块：
+**对于没有状态变化的方块：**
 ```json
 {  
   "variants": {  
@@ -243,8 +244,30 @@ Minecraft有的方块只有一种状态，有的不止一种，举个例子，�
   }  
 }
 ```
-
+**对于继承`HorizontalDirectionalBlock`的方块：**
+```json
+{  
+  "variants": {  
+    "facing=east": {  
+      "model": "coralines_delight:block/example_horizontal_directional_block",  
+      "y": 90  
+    },  
+    "facing=north": {  
+      "model": "coralines_delight:block/example_horizontal_directional_block"  
+    },  
+    "facing=south": {  
+      "model": "coralines_delight:block/example_horizontal_directional_block",  
+      "y": 180  
+    },  
+    "facing=west": {  
+      "model": "coralines_delight:block/example_horizontal_directional_block",  
+      "y": 270  
+    }  
+  }  
+}
+```
 **说明**
+- `"facing=east"`这就是一个方块状态，意味着`facing`状态为`east`，这个`facing`为`HorizontalDirectionalBlock`里的参数`Facing`在json文件中的映射，普通方块类用这个状态会报错
 - `coralines_delight:block/example_block`: 这是对应的这种状态下的模型文件路径
 
 #### 第六步：创建方块模型
@@ -252,7 +275,7 @@ Minecraft有的方块只有一种状态，有的不止一种，举个例子，�
 **创建方块模型文件**  
 在 `src/main/resources/assets/coralinesdelight/models/block` 中新建 `example_block.json`
 
-#####  常规正方体方块
+#####  常规六面贴图都一样的正方体方块
 
 ```json
 {  
@@ -262,7 +285,26 @@ Minecraft有的方块只有一种状态，有的不止一种，举个例子，�
   }  
 }
 ```
+**说明**
+- `parent`: 使用所有面贴图都一样方块模板
+- `textures`: 方块每个面贴图路径对应 `textures/block` 中的PNG文件
 
+#####  六面贴图自定义正方体方块
+如下是一个工作台的模型
+```json
+{  
+  "parent": "minecraft:block/cube",  
+  "textures": {  
+    "down": "minecraft:block/oak_planks",  
+    "east": "minecraft:block/crafting_table_side",  
+    "north": "minecraft:block/crafting_table_front",  
+    "particle": "minecraft:block/crafting_table_front",  
+    "south": "minecraft:block/crafting_table_side",  
+    "up": "minecraft:block/crafting_table_top",  
+    "west": "minecraft:block/crafting_table_front"  
+  }  
+}
+```
 **说明**
 - `parent`: 使用标准方块模板
 - `textures`: 方块每个面贴图路径对应 `textures/block` 中的PNG文件
@@ -291,7 +333,7 @@ Minecraft有的方块只有一种状态，有的不止一种，举个例子，�
 
 2. 在类末尾添加注册条目，注意绑定方块和物品在这里实现`BlockRegistry.EXAMPLE_BLOCK.get()`，还记得方块注册类里面那些大写的名字吗，用你的方块大写名字去替换这个EXAMPLE_BLOCK
 ```java
-public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM =  
+public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM =
         ITEMS.register("example_block_item", () -> new ExampleBlockItem(BlockRegistry.EXAMPLE_BLOCK.get()));
 ```
 
