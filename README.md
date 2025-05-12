@@ -1,7 +1,72 @@
-# CoralinesDelight 模组物品创建指南
+# 📖 模组物品创建指南
 
 本教程将指导你如何在自己的模板Mod中添加新物品，包含从代码到资源的完整流程（基于Minecraft 1.20.1  Forge环境）
 
+---
+
+## ✒️ 新建项目指南
+
+### 第一步：下载并打开Mdk
+1. 上forge官网下载Mdk[Downloads for Minecraft Forge for Minecraft 1.20.1](https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html)
+
+2. 解压，会得到一个文件夹，这个就是一个基础的forge开发框架。最好他改个名，方便辨认，具体叫啥没有讲究，中英文都可
+
+3. 用idea打开
+
+### 第二步：更改Gradle配置
+1. 找到根目录下 `gradle.properties` 文件对其进行修改
+```
+forge_version=47.4.0 // 这一项不要随便改，这是forge版本，只有在发现有新forge版本且有必要更新的时候才改，当然也可以回退版本，更改完会弹一个大象转圈的按钮让你重载项目，点一下就能更改
+mod_id=examplemod  // mod的唯一id，命名空间(资源包也会放同名文件夹里)
+mod_name=Example Mod // 展示用的名称
+mod_license=All Rights Reserved // License是一种法律协议，它规定了软件代码可以被如何使用、修改和分发，最宽松的开源协议是MIT
+mod_version=1.0.0 // 版本号
+mod_group_id=com.example.examplemod // 组ID，两个具有相同组ID的模组同时加载时只有一个能用，把example换成作者id,examplemod替换成mod_id是较主流的做法
+mod_authors=YourNameHere, OtherNameHere // 作者名
+mod_description=Example mod description.\nNewline characters can be used and will be replaced properly. // mod简要描述，\n这个是换行符，代码不认识回车
+```
+就是这个按钮
+![reload](https://github.com/poisonsheep/Coralines-Delight/blob/master/src/main/resources/reload.png?raw=true)
+
+2. 找到 `src/main/resources/META-INF/mods.toml` 文件添加下面这一行，用作mod封面
+```
+logoFile="mod_icon.png"
+```
+**说明**
+- `mod_icon.png` 为放置在 `src/main/resources` 用做mod封面图片的名字
+
+### 第三步：新建Mod主类
+1. 把它示范给的 `com.example.examplemod` 目录以及底下的文件全给删了，然后新建自己的工作路径，这个路径最好是之前修改 `gradle.properties` 中的 `mod_group_id`
+   ![工作路径](https://github.com/poisonsheep/Coralines-Delight/blob/master/src/main/resources/working%20directory.png?raw=true)
+
+
+2. 新建mod主类，右键文件夹空白地方新建**Java Class**。这里提一嘴**java**类名字基本遵循 `Word1Word2` 这样把两个首字母大写单词拼起来的命名规则，两个单词间不加任何其他符号包括空格跟下划线。主类名字一般用 `mod_id` 改，例如许愿泉的 `mod_id` 为 `wishing_fountain`，主类名称就叫 `WishingFountain`
+
+3. 对主类进行编写。
+   来点java小课堂，讲解主类是个什么东西，假如把mod比作一个变形金刚，那么mod主类相当于它的能源火种，其他所有类都是对于这个主类进行修饰，最后mod一整个组装到Minecraft这个大力神金刚上面
+   如下是个简单的主类代码示范
+```java
+package com.example.examplemod;  
+  
+import net.minecraftforge.eventbus.api.IEventBus;  
+import net.minecraftforge.fml.common.Mod;  
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;  
+  
+// 这里所有的ExampleMod改成java主类名，包括上面这个@Mod(ExampleMod.MODID)，类名public class ExampleMod还有构造方法 public ExampleMod()@Mod(ExampleMod.MODID)  
+public class ExampleMod  
+{  
+    // 这个值是把mod_id写进java里，就是在gradle.properties的那个mod_id，一定要一样  
+    public static final String MODID = "examplemod";  
+  
+    /* ------------------------- minecraft小课堂 -------------------------     * 事件是Minecraft里面一个重要系统  
+     * Minecraft随着时间运行，会伴随有事件发生，比如玩家右键唱片机就会触发一个事件，通过对这个事件编写，就可以指定在玩家右键唱片机时发生什么事情  
+     * 不止是玩家才会触发事件，事件有相当多，包括游戏启动时也会触发很多事件  
+     */    // 这个modEventBus是一个Minecraft启动时发生的事件，通过对这个事件编写才能在游戏中添加各种有趣的东西，每次启动是不是会看到有个锤子在敲铁砧，那个时候就正在处理这个事件  
+    public ExampleMod() {  
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();  
+    }  
+}
+```
 ---
 
 ## 📌 物品创建指南
@@ -185,7 +250,7 @@ event.accept(ItemRegistry.GOLDEN_STRAWBERRY.get());
 
 ---
 
-## 📌方块创建指南
+## 🧊方块创建指南
 开始本篇前我们需要明确什么是方块，**方块（Block)** 是Minecraft世界里最基本的组成单位，只存在于世界中，需同玩家手中的方块物品区分开来。玩家手中的方块是一种拥有方块模型的物品，只是具有特殊右键的功能，从代码上讲该功能就是每一次右键使用在目标位置放置一个方块，然后物品栏中该物品堆的数量减一(如果是创造模式则不减)。这样看来我们创建方块需要进行两步，创建方块以及创建相应的方块物品(如果说只创建方块不创建物品也是可以的，不过只能通过指令`setblock`放置)
 
 ###  创建方块
